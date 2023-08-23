@@ -1,8 +1,23 @@
 import React, { Component } from "react";
 import Newsitem from "./Newsitem";
+import PropTypes from 'prop-types'
 
 
 export default class News extends Component {
+
+    static defaultProps={
+      country: 'in',
+      pageSize: 8, 
+      category: 'general'
+    }
+    static PropTypes={
+      country: PropTypes.string,
+      pageSize: PropTypes.number, 
+      category: PropTypes.string
+    }
+    
+
+
   // articlesApi=[
   //   {
   //   "source": {
@@ -1137,7 +1152,7 @@ export default class News extends Component {
     }
 
     async componentDidMount() {
-      let apiKey=`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=4f98bb28921249eb9de2a024698f34c4&page=1&pageSize=30`;
+      let apiKey=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4f98bb28921249eb9de2a024698f34c4&page=1&pageSize=${this.props.pageSize}`;
       let response = await fetch(apiKey);
       let data = await response.json();
       console.log(data);
@@ -1155,7 +1170,7 @@ export default class News extends Component {
         console.log("if")
       }
       else{
-        let apiKey=`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=4f98bb28921249eb9de2a024698f34c4&page=${this.state.page + 1}&pageSize=30`;
+        let apiKey=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4f98bb28921249eb9de2a024698f34c4&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
         let response = await fetch(apiKey);
         let data = await response.json();
         console.log(data);
@@ -1168,7 +1183,7 @@ export default class News extends Component {
     }
 
     handlerPrevious=async()=>{
-      let apiKey=`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=4f98bb28921249eb9de2a024698f34c4&page=${this.state.page -1}&pageSize=30`;
+      let apiKey=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4f98bb28921249eb9de2a024698f34c4&page=${this.state.page -1}&pageSize=${this.props.pageSize}`;
       let response = await fetch(apiKey);
       let data = await response.json();
       console.log(data);
